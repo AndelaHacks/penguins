@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
 
     private static final int DRAW_OVER_OTHER_APP_PERMISSION = 123;
 
@@ -21,7 +21,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
             askForSystemOverlayPermission();
         }
-        findViewById(R.id.buttonCreateWidget).setOnClickListener(this);
+        startService();
+
     }
 
     @Override
@@ -64,8 +65,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startService(mIntent);
     }
 
-    @Override
-    public void onClick(View v) {
+    public void startService()
+    {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             startService(new Intent(MainActivity.this, FloatingViewService.class));
             finish();
